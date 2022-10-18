@@ -31,4 +31,4 @@ Route::resource('series', SerieController::class);
 Route::resource('movies', MovieController::class);
 
 Route::get('/', [MainController::class, 'index'])->name('main');
-Route::get('/trending', [MainController::class, 'fetchTrending']);
+Route::get('/random', [MainController::class, 'fetchRandom']);

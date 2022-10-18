@@ -140,6 +140,8 @@
     AOS.init();
     const api_key = "4e1ba29d0bd265e3f3eb30d63b771b12";
     const api_url = "https://api.themoviedb.org/3";
+    const url = window.location.host
+
     
     </script>
       @yield("script")

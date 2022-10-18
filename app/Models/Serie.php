@@ -10,4 +10,11 @@ class Serie extends Model
 {
     use HasFactory, SoftDeletes;
     
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+    
+    public function seasons() {
+        return $this->hasMany(Season::class);
+    }
 }

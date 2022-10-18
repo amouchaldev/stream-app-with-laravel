@@ -15,7 +15,11 @@ return new class extends Migration
     {
         Schema::create('seasons', function (Blueprint $table) {
             $table->id();
+            $table->integer('season_num');
+            $table->foreignId('serie_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

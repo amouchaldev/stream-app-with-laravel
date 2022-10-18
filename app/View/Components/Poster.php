@@ -18,8 +18,8 @@ class Poster extends Component
     public $quality;
     public $poster;
     public $year;
-    public $duration;
-    public function __construct($title, $quality, $poster, $season = null, $episode = null, $type = "movie", $year = null, $duration = null)
+    public $runtime;
+    public function __construct($title, $quality, $poster, $season = null, $episode = null, $type = "movie", $year = null, $runtime = null)
     {
         $this->title = $title;
         $this->type = $type;
@@ -28,7 +28,7 @@ class Poster extends Component
         $this->quality = $quality;
         $this->poster = $poster;
         $this->year = $year;
-        $this->duration = $duration;
+        $this->runtime = $runtime;
         
     }
 

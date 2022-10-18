@@ -119,21 +119,23 @@
     <section id="trending" class="mb-5">
         <div class="container">
             <div class="d-flex align-items-center mb-3">
-                <h2 class="me-4 text-light">Trending</h2>
+                <h2 class="me-4 text-light">Random</h2>
                 <button class="btn btn-sm btn-primary me-3 btn-movies"><i class="fa-solid fa-circle-play me-2"></i>Movies</button>
                 <button class="btn btn-sm  btn-light btn-tv-show"><i class="fa-solid fa-list-ul me-2"></i>Tv Show</button>
             </div>
             <!-- trending movies -->
             <div id="trending-movies">
                 <div class="row episodes px-3">
+                    {{-- @foreach ($randomMovies as $movie)        
                     <x-poster 
-                        title="train bullet" 
+                        :title="$movie['name']" 
                         type="movie" 
-                        year="2022" 
-                        duration="122" 
-                        quality="HD"
-                        poster="https://m.media-amazon.com/images/M/MV5BMDU2ZmM2OTYtNzIxYy00NjM5LTliNGQtN2JmOWQzYTBmZWUzXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg">
+                        :year="$movie['release_date']" 
+                        :runtime="$movie['runtime']" 
+                        :quality="$movie['quality']"
+                        :poster="$movie['poster']">
                     </x-poster>
+                    @endforeach --}}
                 </div>
             </div>
             <!-- trending tv show -->
@@ -175,25 +177,46 @@
             }
         }
         
-        function fetchByTmdbId(type, id) {
-            // console.log(`${api_url}/${type}/${id}?api_key=${api_key}`)
-            fetch(`${api_url}/${type}/${id}?api_key=${api_key}`)
-            .then(res => res.json())
-            .then(data => console.log(data))
+  
+
+        //function fetch tmdb id from db and then fetch each poster from tmdb
+        function fetchPoster(type) {
+            fetch(`random`)
+            .then(r => r.json())
+            .then(res => {
+                // console.log(res)
+                for (let movie of res) {
+                    // console.log(movie.tmdb_id)
+                    fetch(`${api_url}/${type}/${movie.tmdb_id}?api_key=${api_key}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        document.querySelector('#trending-movies > .row').innerHTML += `<div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-4 episode m-0 p-0" data-aos="fade-up">
+                            <div class="card border-0 position-relative px-1 bg-transparent">
+                                <div class="img-container position-relative w-100">
+                                    <img class="card-img-top rounded position-absolute w-100 h-100" src="https://image.tmdb.org/t/p/w500${data.poster_path}" alt="poster">
+                                    <div class="overlay bg-dark position-absolute w-100 h-100 top-0 start-0 rounded"></div>
+                                    <button class="btn btn-primary position-absolute" style="transform: transalte(-50%, -50%);"><i class="fa-solid fa-circle-play"></i></button>
+                                </div>
+                            <div class="card-body p-0 mt-2">
+                                <h4 class="card-title h6 m-0 text-capitalize text-light">${data.title}</h4>
+                                <div class="info d-flex justify-content-between text-muted mt-1">
+                                    <div class="d-flex align-items-center mt-1">
+                                        <small class="text-light">${new Date(data.release_date).getFullYear()}</small>
+                                        <span class="d-inline-block bg-secondary dot mx-2"></span>
+                                        <small class="text-light">${data.runtime}m</small>
+                                    </div>
+                                    <small class="border rounded text-light" style="padding: 1px 3px;">Movie</small>
+                                </div>
+                            </div>
+                            <strong class="quality position-absolute bg-white p-1 rounded end-0 top-0 m-2 text-capitalize">${movie.quality}</strong>
+                            </div>
+                        </div>`
+                    })
+                    // 
+                }
+            })
         }
 
-        fetchByTmdbId('movie', 333)
-        
-        const url = window.location.host
-        fetch(`trending`)
-        .then(r => r.json())
-        .then(res => {
-            // console.log(res.trendingMovies)
-            for (let movie of res.trendingMovies) {
-                // console.log(movie.tmdb_id)
-                fetchByTmdbId('movie', movie.tmdb_id)
-                
-            }
-        })
+        fetchPoster('movie')
     </script>
 @endsection

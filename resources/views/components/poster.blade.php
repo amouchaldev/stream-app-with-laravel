@@ -11,7 +11,7 @@
             <div class="d-flex align-items-center mt-1">
                 <small class="text-light">{{ $type == "movie" ? $year : 'SS ' . $season }}</small>
                 <span class="d-inline-block bg-secondary dot mx-2"></span>
-                <small class="text-light">{{ $type == "movie" ? $duration . 'm' : 'EPS ' . $episode }}</small>
+                <small class="text-light">{{ $type == "movie" ? $runtime . 'm' : 'EPS ' . $episode }}</small>
             </div>
             <small class="border rounded text-light" style="padding: 1px 3px;">{{ $type }}</small>
         </div>

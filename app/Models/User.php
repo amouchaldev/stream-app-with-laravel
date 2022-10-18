@@ -41,4 +41,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function movies() {
+        return $this->hasMany(Movie::class);
+    }
+    public function series() {
+        return $this->hasMany(Serie::class);
+    }
+    public function seasons() {
+        return $this->hasMany(Season::class);
+    }
+    public function episodes() {
+        return $this->hasMany(Episode::class);
+    }
+    public function streams() {
+        return $this->hasMany(Stream::class);
+    }
+    public function downloads() {
+        return $this->hasMany(Download::class);
+    }
 }
