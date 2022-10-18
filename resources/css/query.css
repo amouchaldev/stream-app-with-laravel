@@ -1,0 +1,95 @@
+/* responsive */
+
+@media only screen and (max-width: 576px) {
+    footer .logo {
+        width: 120px!important;
+    }
+    footer > div {
+        padding-top: 43px;
+    }
+
+    header #search-input {
+        left: 12%;
+        top: 90%;
+    }
+    header h5 {
+        font-size: 34px!important;
+    }
+    header .dropdown-menu {
+        width: 305px;
+    }
+    #seasonAndEp {
+        margin-top: 999px;
+    }
+    main .info {
+        top: 167%
+    }
+    /* #you-might-like .card{
+        height: 275px;
+        } */
+}
+/* Extra Small Devices, Phones */ 
+@media only screen and (min-width: 577px) and (max-width : 767px) {
+    /*Big smartphones [426px -> 600px]*/
+    header #search-input {
+        transform: translate(-50%, 201%);
+    }
+    header {
+        background-position: right top; 
+    }
+    .img-container {
+        height: 217.42px;
+    }
+    /* footer {
+        height: 334px;
+    } */
+    footer > div {
+        padding-top: 49px;
+    }
+    main .info {
+        top: 180%
+    }
+    #seasonAndEp {
+        margin-top: 1090px;
+    }
+
+    /* #you-might-like .card {
+        height: 287px;
+            } */
+}
+
+@media only screen and (min-width: 768px) {
+    header #search-input {
+        transform: translate(-50%, 165%);
+    }
+    header {
+        background-position: top; 
+    }
+    footer > div {
+        padding-top: 54px;
+    }
+    header .dropdown-menu {
+        width: 405px;
+    }
+}
+@media only screen and (min-width: 992px)  {
+    footer > div {
+    padding-top: 68px;
+    }
+    header .dropdown-menu {
+        width: 505px;
+    }
+
+    /* #you-might-like .card {
+        height: 243px;
+        } */
+    /* .img-container {
+        height: 240.427px;
+    } */
+}
+@media only screen and (min-width: 992px) and (max-width: 1200px){
+
+    .img-container {
+        height: 220.427px;
+    }
+}
