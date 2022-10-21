@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Episode;
 use App\Models\Movie;
 use App\Models\Serie;
 use Illuminate\Http\Request;
@@ -32,13 +33,32 @@ class MainController extends Controller
     //   $this->fetchMovieOrSerie("movie", $movies, $randomMovies);
     //   return response()->json($randomMovies);
     //   return json_encode($randomMovies, true);
-        return view('main.index');
+        $randomEp = Episode::inRandomOrder()->limit(12)->get();
+        $latestEp = Episode::limit(20)->orderBy('created_at', 'DESC')->get();
+        return view('main.index', [
+            'randomEp' => $randomEp,
+            'latestEp' => $latestEp
+        ]);
     } 
-
-
-    public function fetchRandom() {
-        $randomMovies = Movie::inRandomOrder()->limit(12)->get(['tmdb_id', 'quality']);
-        return response()->json($randomMovies);
-
+    
+    
+    public function random($type) {
+        if ($type == "movies") {
+            $randomMovies = Movie::inRandomOrder()->limit(12)->get(['id', 'tmdb_id', 'quality']);
+            return response()->json($randomMovies);
+        }
+        if ($type = "series") {
+            $randomSeries = Serie::inRandomOrder()->limit(12)->get(['id', 'tmdb_id', 'quality']);
+            return response()->json($randomSeries);
+        }
+    }
+    // public function randomSerie() {
+    //     $randomSeries = Serie::inRandomOrder()->limit(12)->get(['id', 'tmdb_id', 'quality']);
+    //     return response()->json($randomSeries);
+    // }     
+    
+    public function latest($type) {
+        $latestMovies = Movie::limit(20)->orderBy('created_at', 'DESC')->get(['id', 'tmdb_id', 'quality']);
+        return response()->json($latestMovies);
     }
 }

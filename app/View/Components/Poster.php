@@ -11,6 +11,7 @@ class Poster extends Component
      *
      * @return void
      */
+    public $id;
     public $title;
     public $type;
     public $season;
@@ -19,8 +20,9 @@ class Poster extends Component
     public $poster;
     public $year;
     public $runtime;
-    public function __construct($title, $quality, $poster, $season = null, $episode = null, $type = "movie", $year = null, $runtime = null)
+    public function __construct($id, $title, $quality, $poster, $season = null, $episode = null, $type = "movie", $year = null, $runtime = null)
     {
+        $this->id = $id;
         $this->title = $title;
         $this->type = $type;
         $this->season = $season;

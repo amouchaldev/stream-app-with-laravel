@@ -11,9 +11,7 @@ body {
     background-repeat: no-repeat; */
 }
 
-main {
-    height: auto!important;
-}
+
 body {
     /* background-size: cover; */
     background: #212342;
@@ -27,7 +25,7 @@ body:after {
         bottom: 0;
         left: 0;
         right: 0;
-        background-image: url('../../images/wall.jpg');
+        background-image: url('../images/wall.jpg');
         background-position: center;
         background-size: cover;
         z-index: -17;
@@ -41,20 +39,15 @@ body:after {
     color: #fff!important;
     border-color: #29b0ef!important;
 }
-.title {
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
-}
+
 header .form-control:focus {
     outline: 0;
     box-shadow: none;
 }
 header {
-    background: #144184 url(../../images/header-bg.jpg) top repeat-x;
+    background: #144184 url(../images/header-bg.jpg) top repeat-x;
 }
-nav #logo {
+header #logo {
     width: 102px;
 }
 header #search-input {
@@ -86,9 +79,6 @@ nav .logo {
 }
 
 
-main {
-    height: 90vh;
-}
 #cover {
     background-repeat: no-repeat;
     background-size: cover;
@@ -198,7 +188,7 @@ background-image: url('../images/posters/overlay.png');
 /* -------------------------------------------------- end third page ----------------------------------------- */
 /* footer */
 footer {
-    background-image: url('../../images/wave.svg');
+    background-image: url('../images/wave.svg');
     background-repeat: no-repeat;
     background-size: cover;
 }

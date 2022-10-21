@@ -13,7 +13,7 @@ class Episode extends Model
         return $this->belongsTo(User::class);
     }
     public function season() {
-        $this->belongsTo(Season::class);
+        return $this->belongsTo(Season::class);
     }
     public function streams() {
         return $this->hasMany(Stream::class);

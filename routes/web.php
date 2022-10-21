@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EpisodeController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\SerieController;
@@ -27,8 +28,15 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('series', SerieController::class);
 
+Route::resource('episodes', EpisodeController::class);
+
 
 Route::resource('movies', MovieController::class);
 
+
 Route::get('/', [MainController::class, 'index'])->name('main');
-Route::get('/random', [MainController::class, 'fetchRandom']);
+
+Route::get('random/{type}', [MainController::class, 'random']);
+// Route::get('random/series', [MainController::class, 'fetchRandomSeries']);
+
+Route::get('latest/{movies}', [MainController::class, 'latest']);

@@ -17,9 +17,13 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!--  AOS MASTER -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
+    <!-- Splide -->
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css"> --}}
+    <link rel="stylesheet" href="{{ asset('css/splide.min.css') }}">
     <!-- Scripts -->
     @vite(['resources/js/app.js'])
+
+    @yield('style')
 </head>
 <body>
     {{-- {{ dd(Route::currentRouteName()) }} --}}
@@ -28,7 +32,7 @@
         @if(Route::currentRouteName() != 'main')
             <nav class="navbar navbar-expand-lg navbar-dark">
                 <div class="container-fluid">
-                <a class="navbar-brand" href="/"><img src="images/logo-light.png" alt="logo" class="logo"></a>
+                <a class="navbar-brand" href="/"><img src="{{ asset('images/logo-light.png') }}" alt="logo" class="logo"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -109,12 +113,12 @@
 
 
         <!-- footer -->
-        <footer class="text-light mt-4 pb-4">
+        <footer class="text-light mt-4 pb-4" style="@if(Route::currentRouteName() == "movies.show") margin-top: 335px!important @endif">
           <!-- <div class="footer-bg position-absolute w-100 h-100 top-0 start-0"></div> -->
           <div class="container-fluid container-md content">
               <div class="row text-center text-sm-start">
                   <div class="col-12 col-sm-3 col-lg-2 text-center mb-3 mb-sm-0">
-                      <img src="images/logo-light.png" alt="LOGO" class="logo w-100"><br />
+                      <img src="{{ asset('images/logo-light.png') }}" alt="LOGO" class="logo w-100"><br />
                       <small class="opacity-75">&copy; 2022</small>
                   </div>
                   <div class="col-12 col-sm-6 col-lg-8 px-lg-5 mb-3 mb-sm-0">
@@ -134,16 +138,37 @@
       </footer>
     </div>
 
+    <script src="{{ asset('js/splide-extension-auto-scroll.min.js') }}"></script>
+    <script src="{{ asset('js/splide.min.js') }}"></script> 
     {{-- AOS MASTER --}}
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> 
     <script>
-    AOS.init();
-    const api_key = "4e1ba29d0bd265e3f3eb30d63b771b12";
-    const api_url = "https://api.themoviedb.org/3";
-    const url = window.location.host
-
-    
+        AOS.init();
     </script>
-      @yield("script")
+    {{-- main js file --}}
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script>
+        
+        function splide(className) { 
+            const splide = new Splide( className, {
+                autoplay:true, 
+                // type   : 'loop',
+                cover  : true,
+                autoScroll: {
+                    speed: 6,
+                    autoStart: true
+                },
+                arrows: 'false',
+                drag   : 'free',
+                focus  : 'left',
+                autoWidth: true,
+                autoHeight: true,
+                perPage: 1,
+            } ).mount();
+            }
+    </script>
+
+    @yield("script")
+
 </body>
 </html>
