@@ -14,7 +14,9 @@ class MovieController extends Controller
      */
     public function index()
     {
-        //
+        // return "loool";
+        $movies = Movie::all();
+        return view('main.result', ['movies' => $movies]);
     }
 
     /**
@@ -64,12 +66,21 @@ class MovieController extends Controller
         // return Movie::findOrFail($id);
     }
 
+    public function player($id) {
+        $movie = Movie::whereId($id)->with(['streams', 'downloads'])->first();
+        // return $movie->streams[0]->link;
+        return view('main.player', [
+            "movie" => $movie
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
+    
     public function edit(Movie $movie)
     {
         //

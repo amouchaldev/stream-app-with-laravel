@@ -118,7 +118,7 @@ main .info a.btn {
 /* season and episodes */
 #seasonAndEp {
     margin-top: 340px;
-    background-image: url('../images/Polygon\ Luminary.svg');
+    background-image: url('../../images/PolygonLuminary.svg');
     background-repeat: no-repeat;
     background-size: cover;
 }

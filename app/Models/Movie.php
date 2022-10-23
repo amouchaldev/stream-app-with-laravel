@@ -17,4 +17,7 @@ class Movie extends Model
     public function downloads() {
         return $this->hasMany(Download::class);
     }
+    public function genres() {
+        return $this->belongsToMany(Genre::class);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Episode;
 use App\Models\Serie;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class SerieController extends Controller
      */
     public function index()
     {
-        //
+        $series = Serie::all();
+        return view('main.result', ['series' => $series]);
     }
 
     /**
@@ -63,6 +65,7 @@ class SerieController extends Controller
         // return Serie::findOrFail($id);
     }
 
+        
     /**
      * Show the form for editing the specified resource.
      *

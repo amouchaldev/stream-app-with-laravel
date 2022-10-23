@@ -33,32 +33,37 @@ class MainController extends Controller
     //   $this->fetchMovieOrSerie("movie", $movies, $randomMovies);
     //   return response()->json($randomMovies);
     //   return json_encode($randomMovies, true);
-        $randomEp = Episode::inRandomOrder()->limit(12)->get();
+        // $randomEp = Episode::inRandomOrder()->limit(12)->get();
+        $randomMovies = Movie::inRandomOrder()->limit(12)->get(['id', 'tmdb_id', 'quality']);
+        $randomSeries = Serie::inRandomOrder()->limit(12)->get(['id', 'tmdb_id', 'quality']);
+        $latestMovies = Movie::limit(20)->orderBy('created_at', 'DESC')->get(['id', 'tmdb_id', 'quality']);
         $latestEp = Episode::limit(20)->orderBy('created_at', 'DESC')->get();
         return view('main.index', [
-            'randomEp' => $randomEp,
-            'latestEp' => $latestEp
+            'randomMovies' => $randomMovies,
+            'randomSeries' => $randomSeries,
+            'latestMovies' => $latestMovies,
+            'latestEp' => $latestEp,
         ]);
     } 
     
     
-    public function random($type) {
-        if ($type == "movies") {
-            $randomMovies = Movie::inRandomOrder()->limit(12)->get(['id', 'tmdb_id', 'quality']);
-            return response()->json($randomMovies);
-        }
-        if ($type = "series") {
-            $randomSeries = Serie::inRandomOrder()->limit(12)->get(['id', 'tmdb_id', 'quality']);
-            return response()->json($randomSeries);
-        }
-    }
+    // public function random($type) {
+    //     if ($type == "movies") {
+    //         $randomMovies = Movie::inRandomOrder()->limit(12)->get(['id', 'tmdb_id', 'quality']);
+    //         return response()->json($randomMovies);
+    //     }
+    //     if ($type = "series") {
+    //         $randomSeries = Serie::inRandomOrder()->limit(12)->get(['id', 'tmdb_id', 'quality']);
+    //         return response()->json($randomSeries);
+    //     }
+    // }
     // public function randomSerie() {
     //     $randomSeries = Serie::inRandomOrder()->limit(12)->get(['id', 'tmdb_id', 'quality']);
     //     return response()->json($randomSeries);
     // }     
     
-    public function latest($type) {
-        $latestMovies = Movie::limit(20)->orderBy('created_at', 'DESC')->get(['id', 'tmdb_id', 'quality']);
-        return response()->json($latestMovies);
-    }
+    // public function latest($type) {
+    //     $latestMovies = Movie::limit(20)->orderBy('created_at', 'DESC')->get(['id', 'tmdb_id', 'quality']);
+    //     return response()->json($latestMovies);
+    // }
 }

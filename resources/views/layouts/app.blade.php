@@ -45,20 +45,9 @@
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Genre</a>
                             <div class="dropdown-menu" aria-labelledby="dropdownId">
                                 <div class="d-flex flex-wrap">
-                                    <a class="dropdown-item mb-1" href="#">Action 1</a>
-                                    <a class="dropdown-item mb-1" href="#">Action 1</a>
-                                    <a class="dropdown-item mb-1" href="#">Action 1</a>
-                                    <a class="dropdown-item mb-1" href="#">Action 1</a>
-                                    <a class="dropdown-item mb-1" href="#">Action 1</a>
-                                    <a class="dropdown-item mb-1" href="#">Action 1</a>
-                                    <a class="dropdown-item mb-1" href="#">Action 1</a>
-                                    <a class="dropdown-item mb-1" href="#">Action 1</a>
-                                    <a class="dropdown-item mb-1" href="#">Action 1</a>
-                                    <a class="dropdown-item mb-1" href="#">Action 1</a>
-                                    <a class="dropdown-item mb-1" href="#">Action 1</a>
-                                    <a class="dropdown-item mb-1" href="#">Action 1</a>
-                                    <a class="dropdown-item mb-1" href="#">Action 1</a>
-                                    <a class="dropdown-item mb-1" href="#">Action 1</a>
+                                    @foreach(\App\Models\Genre::all() as $genre)
+                                        <a class="dropdown-item mb-1 rounded text-center" href="{{ route('genre', $genre->name) }}">{{ $genre->name }}</a>
+                                    @endforeach
                                 </div>
                             </div>
                         </li>
@@ -83,10 +72,10 @@
                                 </div>
                         </li>
                         <li class="nav-item mx-md-2">
-                            <a class="nav-link" href="#">Movies</a>
+                            <a class="nav-link" href="{{ route('movies.index') }}">Movies</a>
                         </li>
                         <li class="nav-item mx-md-2">
-                            <a class="nav-link" href="#">tv show</a>
+                            <a class="nav-link" href="{{ route('series.index') }}">tv show</a>
                         </li>
                         <li class="nav-item mx-md-2">
                             <a class="nav-link" href="#">top IMDB</a>
@@ -166,7 +155,37 @@
                 perPage: 1,
             } ).mount();
             }
+            
+           
+
+            
     </script>
+ @if(Route::currentRouteName() == "series.show" || Route::currentRouteName() == "tv") 
+    <script>
+        
+        const serie = @php echo $serie @endphp;
+        const seasonList = doc.getElementById('seasons')
+        const episodesContainer = doc.querySelector('#seasonEp .row')
+        const seasons = @php echo $serie->seasons()->get() @endphp;
+            show(serie, "tv")
+            // generateEpisodes("col-6 col-sm-4 col-md-3 col-lg-3 mb-4")
+        </script>        
+ @endif
+ 
+ @if(Route::currentRouteName() == "series.show")
+ <script>
+
+     generateEpisodes("col-lg-2")
+ </script>
+ @endif
+
+ @if(Route::currentRouteName() == "tv")
+ <script>
+
+     generateEpisodes("col-6 col-sm-4 col-md-4 col-lg-3")
+ </script>
+ @endif
+
 
     @yield("script")
 

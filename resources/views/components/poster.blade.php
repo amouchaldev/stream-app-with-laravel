@@ -1,6 +1,6 @@
    {{-- <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-4 episode m-0 p-0" data-aos="fade-up"> --}}
     <div class="card border-0 position-relative px-1 bg-transparent">
-      <a href="/episodes/{{ $id }}">
+      <a href="/tv/{{ $id }}">
         <div class="img-container position-relative w-100">
             <img class="card-img-top rounded position-absolute w-100 h-100" src="{{ $poster }}" alt="{{ $title }}">
             <div class="overlay bg-dark position-absolute w-100 h-100 top-0 start-0 rounded"></div>
