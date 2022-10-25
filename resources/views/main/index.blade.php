@@ -1,5 +1,12 @@
 @extends('layouts.app')
-
+@section('style')
+    <style>
+        #search-result .img-container {
+            width: 43px;
+            height: 64px;
+        }
+    </style>
+@endsection
 @section('content')
 <header class="pb-4 position-relative mb-5">
     <!-- start navbar -->
@@ -71,6 +78,16 @@
         <input type="text" class="form-control py-3 border-0" placeholder="Enter Keywords..." aria-label="Username" aria-describedby="basic-addon1">
         <button type="submit" class="btn btn-primary"><i class="fas fa-arrow-right"></i></button>
     </div>
+    <div id="search-result">
+        <ul>
+            <li>
+                <div class="img-container">
+                    <img src="https://m.media-amazon.com/images/M/MV5BZjBiOGIyY2YtOTA3OC00YzY1LThkYjktMGRkYTNhNTExY2I2XkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_FMjpg_UX1000_.jpg" alt="poster" class="w-100 h-100"> 
+                </div>
+                <h5>House Of Dragon</h5>
+            </li>
+        </ul>
+    </div>
 </header>
 
 <!-- social media -->
@@ -80,10 +97,10 @@
             <a href="#" class="text-decoration-none text-light mb-2">
                 <small style="background-color: #1DA1F2;" class="py-1 px-3 rounded me-2"><i class="fa-brands fa-twitter me-2"></i>twitter</small>
             </a>
-            <a href="#" class="text-decoration-none text-light mb-2">
+            <a href="https://www.facebook.com/amcmostafa/" class="text-decoration-none text-light mb-2">
                 <small style="background-color: #3B5998;" class="py-1 px-3 rounded me-2"><i class="fa-brands fa-facebook me-2"></i>facebook</small>
             </a>
-            <a href="#" class="text-decoration-none text-light mb-2">
+            <a href="https://www.instagram.com/amcmostafa/" class="text-decoration-none text-light mb-2">
                 <small style="background-color: #ea00a6;" class="py-1 px-3 rounded me-2"><i class="fa-brands fa-instagram me-2"></i>instagram</small>
             </a>
             <a href="#" class="text-decoration-none text-light mb-2">
@@ -215,7 +232,7 @@
         // toggle trending movies and trending tv show
         // const doc = document
         const [ trendingMoviesContainer, moviesBtn, trendingTvShowContainer, tvShowBtn ] = [ doc.querySelector('#trending-movies'), doc.querySelector('#trending .btn-movies'), doc.querySelector('#trending-tv-show'), doc.querySelector('#trending button.btn-tv-show') ]
-        console.log(moviesBtn.innerHTML)
+        // console.log(moviesBtn.innerHTML)
         moviesBtn.addEventListener('click', () => toggleMoviesAndTvShow(trendingMoviesContainer, moviesBtn,  trendingTvShowContainer, tvShowBtn))
         tvShowBtn.addEventListener('click', () => toggleMoviesAndTvShow(trendingTvShowContainer, tvShowBtn, trendingMoviesContainer, moviesBtn))
         function toggleMoviesAndTvShow(firstSection, firstBtn, secondSection, secondBtn) {
@@ -233,7 +250,7 @@
         const randomSeries = @php echo $randomSeries; @endphp;
         const latestMovies = @php echo $latestMovies; @endphp;
 
-        console.log(randomSeries)
+        // console.log(randomSeries)
 
         fetchPoster(randomMovies, '#trending-movies > .row', false, 'movie', 'movies')
         fetchPoster(randomSeries, '#trending-tv-show > .row', false, 'tv', 'series')
@@ -251,5 +268,28 @@
         //  }, 1000);
         splide(".splideLatestTvShow")
          
+
+
+
+
+
+
+            // search input 
+            const searchInput = doc.querySelector('#search-input input')
+            console.log(searchInput)
+
+            searchInput.oninput = e => {
+                console.log(e.target.value)
+                   fetch(`/search/${e.target.value}`)
+                   .then(res => res.json())
+                   .then(data => console.log(data))
+            }
+
+
+
+
+
+
+
     </script>
 @endsection

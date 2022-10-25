@@ -50,6 +50,8 @@ Route::get('/tv/{ep}', [EpisodeController::class, "player"])->name('tv');
 
 Route::get('/genre/{name}', [GenreController::class, "show"])->name('genre');
 
+Route::get('/search/{key}', [MainController::class, 'search']);
+
 // Route::get('/player', function () {
 //     return view('main.player');
 // });

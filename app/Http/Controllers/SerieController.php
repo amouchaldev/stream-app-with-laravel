@@ -41,11 +41,13 @@ class SerieController extends Controller
             'tmdb_id' => 'required|unique:series',
             'name' => 'required',
             'quality' => 'required',
+            'trailler' => 'required',
         ]);
         $serie = new Serie();
         $serie->tmdb_id = $request['tmdb_id'];
         $serie->name = $request['name'];
         $serie->quality = $request['quality'];
+        $serie->trailler = $request['trailler'];
         $serie->save();
         return back()->with('status', $request['name'] . ' added successfully');
     }

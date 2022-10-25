@@ -18,14 +18,14 @@
     <div class="alert alert-warning">If you get any error message when trying to stream, please Refresh the page or switch to another streaming server.
     </div>
     <div class="d-flex flex-column rounded" id="stream-servers">
-            <ul class="d-flex text-light list-unstyled justify-content-around">
+            <ul class="d-flex text-light list-unstyled justify-content-around m-0">
                 @if($current_route == "movie") 
                     @foreach($movie->streams as $server)
-                        <li class="pt-3 pb-1" data-link="{{ $server->link }}">{{ $server->name }}</li>
+                        <li class="py-3 flex-fill text-center" data-link="{{ $server->link }}">{{ $server->name }}</li>
                     @endforeach
                 @else 
                     @foreach($episode->streams as $server)
-                        <li class="pt-3 pb-1" data-link="{{ $server->link }}">{{ $server->name }}</li>
+                        <li class="py-3 flex-fill text-center" data-link="{{ $server->link }}">{{ $server->name }}</li>
                     @endforeach
                 @endif
             </ul>
@@ -117,12 +117,20 @@
         // switch between streaming servers
         const streamingServers = doc.querySelectorAll('#stream-servers ul li')
         console.log(streamingServers)
+        streamingServers[0].classList.add('active')
+        // console.log("loool", streamingServers[0])
         streamingServers.forEach(link => {
-            link.addEventListener('click', () => {
-                // console.log(link.getAttribute('data-link'))
+            // link.classList.remove('active')
+            link.addEventListener('click', e => {
+                streamingServers.forEach(server => server.classList.remove('active'))
+                e.target.classList.add('active')
+                // link.classList.add('active')
+
                 doc.querySelector('#player iframe').setAttribute('src', link.getAttribute('data-link'))
             })
         });
+
+
         console.log('from player')
     </script>
 @endsection

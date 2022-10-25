@@ -14,7 +14,7 @@ const URL = window.location.host
             fetch(`${API_URL}/${type}/${movie.tmdb_id}?api_key=${API_KEY}`)
             .then(res => res.json())
             .then(data => {
-                console.log("type")
+                // console.log("type")
                 // container type => if it's true then container is a slider if it's false then it's not a slide 
                 if (!containerType) {
                     document.querySelector(container).innerHTML += `
@@ -99,6 +99,8 @@ function show(objt, type) {
         }
         doc.querySelector('#mv-release_date').innerHTML = type == "movie" ? new Date(data.release_date).toLocaleDateString() : new Date(data.first_air_date).toLocaleDateString()
         doc.querySelector('#mv-quality').innerHTML = objt.quality
+        doc.querySelector('#trailler .modal-body iframe').src = objt.trailler
+
     })
 }
 

@@ -13,6 +13,12 @@
             background-size: cover;
             background-position: left; */
         }
+    .modal-body {
+        width: 787px;
+        height: 439px;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
     </style>
 @endsection
 @section('content')
@@ -43,7 +49,7 @@
                 </div>
                 <h2 class="mb-3"><a href="#" class="text-decoration-none text-black" id="mv-name">Bullet Train</a></h2>
                 <div class="mb-3">
-                    <a class="btn btn-outline-dark btn-sm me-2" href="" id="mv-trailler"><i class="fa-solid fa-video me-1"></i> trailler</a>
+                    <button class="btn btn-outline-dark btn-sm me-2"  data-bs-toggle="modal" data-bs-target="#trailler" id="mv-trailler"><i class="fa-solid fa-video me-1"></i> trailler</button>
                     <button class="btn btn-outline-dark btn-sm fw-bold me-2" id="mv-quality">HD</button>
                     <button class="btn btn-outline-warning btn-sm fw-bold" >IMDB: <span class="quality" id="mv-rate">8.5</span></button>
                 </div>
@@ -85,6 +91,16 @@
 @endif
 
 
+<!-- Trailler Modal -->
+<div class="modal fade" id="trailler" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-transparent">
+        <div class="modal-body p-0">
+          <iframe src="" frameborder="0" class="w-100 h-100"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 @endsection

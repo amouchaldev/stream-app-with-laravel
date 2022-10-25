@@ -41,11 +41,13 @@ class MovieController extends Controller
             'tmdb_id' => 'required|unique:movies',
             'name' => 'required',
             'quality' => 'required',
+            'trailler' => 'required',
         ]);
         $movie = new Movie();
         $movie->tmdb_id = $request['tmdb_id'];
         $movie->name = $request['name'];
         $movie->quality = $request['quality'];
+        $movie->trailler = $request['trailler'];
         $movie->save();
         return back()->with('status', $request['name'] . ' added successfully');
     }

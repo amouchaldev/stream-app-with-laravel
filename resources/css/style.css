@@ -167,8 +167,11 @@ section .dot  {
 #player {
     height: 670px;
 }
-#stream-servers {
+#stream-servers ul li{
     background-color: rgb(40, 43, 76);
+}
+#stream-servers ul li.active {
+    border-bottom: 2px solid #45aaf2;
 }
 #stream-servers ul li  {
     cursor: pointer;

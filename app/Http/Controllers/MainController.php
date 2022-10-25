@@ -66,4 +66,15 @@ class MainController extends Controller
     //     $latestMovies = Movie::limit(20)->orderBy('created_at', 'DESC')->get(['id', 'tmdb_id', 'quality']);
     //     return response()->json($latestMovies);
     // }
+
+    public function search($key) {
+        $movies = Movie::where('name', 'like', "$key%")->get();
+        $series = Serie::where('name', 'like', "$key%")->get();
+        return response()->json([
+            'movies' => $movies,
+            'series' => $series
+        ]);
+    }
+
+
 }
