@@ -3,11 +3,11 @@
 @section('content')
 
 
-@if (Route::currentRouteName() == 'genre')
+@if (Route::currentRouteName() == 'genre' || Route::currentRouteName() == 'search')
 <section id="trending" class="mb-5 mt-4">
     <div class="container-fluid">
         <div class="d-flex align-items-center mb-3">
-            <h2 class="me-4 text-light text-uppercase">{{ $genre }}</h2>
+            <h2 class="me-4 text-light text-uppercase">{{ $genre ?? "Result of search" }}</h2>
             <button class="btn btn-sm btn-primary me-3 btn-movies"><i class="fa-solid fa-circle-play me-2"></i>Movies</button>
             <button class="btn btn-sm  btn-light btn-tv-show"><i class="fa-solid fa-list-ul me-2"></i>Tv Show</button>
         </div>
@@ -79,7 +79,7 @@
 
 @section('script')
 
-@if(Route::currentRouteName() == 'genre')
+@if(Route::currentRouteName() == 'genre' || Route::currentRouteName() == 'search')
 <script>
         // toggle trending movies and trending tv show
         // const doc = document
@@ -99,8 +99,8 @@
             }
         }
 
-    const movies = @php echo $movies; @endphp;
-    const series = @php echo $series; @endphp;
+    const movies = @php echo $movies ?? null; @endphp;
+    const series = @php echo $series ?? null; @endphp;
         
     fetchPoster(movies, '#trending-movies > .row', false, 'movie', 'movies')
     fetchPoster(series, '#trending-tv-show > .row', false, 'tv', 'series');

@@ -73,21 +73,53 @@
     <!-- end navbar -->
     <h5 class="py-5 text-center text-light h3">Find Movies, TV shows and more</h5>
     <!-- search input -->
-    <div class="input-group mb-3 position-absolute w-75 shadow-sm" id="search-input">
-        <span class="input-group-text bg-white border-0" id="basic-addon1"><i class="fa-solid fa-magnifying-glass"></i></span>
-        <input type="text" class="form-control py-3 border-0" placeholder="Enter Keywords..." aria-label="Username" aria-describedby="basic-addon1">
-        <button type="submit" class="btn btn-primary"><i class="fas fa-arrow-right"></i></button>
-    </div>
-    <div id="search-result">
-        <ul>
-            <li>
-                <div class="img-container">
-                    <img src="https://m.media-amazon.com/images/M/MV5BZjBiOGIyY2YtOTA3OC00YzY1LThkYjktMGRkYTNhNTExY2I2XkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_FMjpg_UX1000_.jpg" alt="poster" class="w-100 h-100"> 
-                </div>
-                <h5>House Of Dragon</h5>
-            </li>
-        </ul>
-    </div>
+    <section class="">
+
+        <div class="input-group mb-3 position-absolute w-75 shadow-sm" id="search-input">
+            <span class="input-group-text bg-white border-0" id="basic-addon1"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input type="text" class="form-control py-3 border-0" placeholder="Enter Keywords..." aria-label="Username" aria-describedby="basic-addon1">
+            <button type="submit" class="btn btn-primary" role="button"><i class="fas fa-arrow-right"></i></button>
+            {{-- <div class="break-column"></div> --}}
+        </div>
+
+        <div id="search-result" class="position-absolute w-75 pt-1 mt-3 pt-sm-1 mt-sm-4 d-none">
+            <ul class="list-unstyled text-dark m-0">
+
+                <li>
+                    <a href="" class="d-flex align-items-center text-decoration-none text-dark">
+                        <div class="img-container me-3">
+                            <img src="https://m.media-amazon.com/images/M/MV5BZjBiOGIyY2YtOTA3OC00YzY1LThkYjktMGRkYTNhNTExY2I2XkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_FMjpg_UX1000_.jpg" alt="poster" class="w-100 h-100"> 
+                        </div>
+                        <h6>House Of Dragon</h6>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="" class="d-flex align-items-center text-decoration-none text-dark">
+                        <div class="img-container me-3">
+                            <img src="https://m.media-amazon.com/images/M/MV5BZjBiOGIyY2YtOTA3OC00YzY1LThkYjktMGRkYTNhNTExY2I2XkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_FMjpg_UX1000_.jpg" alt="poster" class="w-100 h-100"> 
+                        </div>
+                        <h6>House Of Dragon</h6>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="" class="d-flex align-items-center text-decoration-none text-dark">
+                        <div class="img-container me-3">
+                            <img src="https://m.media-amazon.com/images/M/MV5BZjBiOGIyY2YtOTA3OC00YzY1LThkYjktMGRkYTNhNTExY2I2XkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_FMjpg_UX1000_.jpg" alt="poster" class="w-100 h-100"> 
+                        </div>
+                        <h6>House Of Dragon</h6>
+                    </a>
+                </li>
+
+                
+
+            </ul>
+        </div>
+
+     
+
+    </section>
 </header>
 
 <!-- social media -->
@@ -267,29 +299,73 @@
         //     splide(".splideLatestMovies")
         //  }, 1000);
         splide(".splideLatestTvShow")
+
+
+        // ------------------- search section 
+        // search input 
+        const searchInput = doc.querySelector('#search-input input')
+        const searchResultContainer = doc.querySelector('#search-result ul')
+        // show search result when typing in input
+            // function fetch data from tmdb and add result to dom 
+         function fetchForSearch(type, objt, container) {
+            fetch(`${API_URL}/${type}/${objt.tmdb_id}?api_key=${API_KEY}`)
+            .then(res => res.json())
+            .then(data => {
+                container.innerHTML += `
+                    <li class="bg-light">
+                        <a href="${ type == "movie" ? "/movies/" + objt.id : "/series/" + objt.id}" class="d-flex align-items-center text-decoration-none text-dark">
+                            <div class="img-container me-3">
+                                <img src="https://image.tmdb.org/t/p/w500${data.poster_path}" alt="poster" class="w-100 h-100"> 
+                            </div>
+                            <h6>${objt.name}</h6>
+                        </a>
+                    </li>`
+            })
+         }
+            searchInput.oninput = e => showResultOfSearch(e)
+
+            // show search result when focus in input
+            searchInput.onfocus = e => showResultOfSearch(e) 
+
+            // hide search result at blur event
+            // fetch result from db and call function that add result to dom
+            function showResultOfSearch(e, callback = () => {}) {
+                let Keywords = e.target.value
+                if (Keywords.length == 0) searchResultContainer.parentElement.classList.add('d-none')
+                searchResultContainer.innerHTML = ""
+                        fetch(`/fetch/${Keywords}`)
+                        .then(res => res.json())
+                        .then(data => { 
+                            if (data.success) {
+
+                                 if (data.movies.length > 0) {
+                                     searchResultContainer.innerHTML = ""
+                                     for (let movie of data.movies) {
+                                         fetchForSearch('movie', movie, searchResultContainer)
+                                     }
+                                 }
          
+                                 if (data.series.length > 0) {
+                                     searchResultContainer.innerHTML = ""
+                                     for (let serie of data.series) {
+                                         fetchForSearch('tv', serie, searchResultContainer)   
+                                     }
+                                 }
 
-
-
-
-
-
-            // search input 
-            const searchInput = doc.querySelector('#search-input input')
-            console.log(searchInput)
-
-            searchInput.oninput = e => {
-                console.log(e.target.value)
-                   fetch(`/search/${e.target.value}`)
-                   .then(res => res.json())
-                   .then(data => console.log(data))
+                                if (data.movies.length + data.series.length == 0) {
+                                   searchResultContainer.parentElement.classList.add('d-none')
+                               }
+                               else {
+                                   e.target.parentElement.nextElementSibling.classList.remove('d-none')
+                               }
+                               
+                             }
+                             })
             }
+                // show search result in page
 
-
-
-
-
-
+              
+                showSearchResult(searchInput.nextElementSibling, searchInput)
 
     </script>
 @endsection

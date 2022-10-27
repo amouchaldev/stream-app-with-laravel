@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Episode;
 use App\Models\Movie;
 use App\Models\Serie;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -67,13 +68,34 @@ class MainController extends Controller
     //     return response()->json($latestMovies);
     // }
 
-    public function search($key) {
-        $movies = Movie::where('name', 'like', "$key%")->get();
-        $series = Serie::where('name', 'like', "$key%")->get();
-        return response()->json([
-            'movies' => $movies,
-            'series' => $series
-        ]);
+    public function fetch($key = null) {
+        if ($key) {
+            $movies = Movie::where('name', 'like', "$key%")->get();
+            $series = Serie::where('name', 'like', "$key%")->get();
+            return response()->json([
+                'success' => true,
+                'movies' => $movies,
+                'series' => $series
+            ]);
+        }
+        else {
+            return response()->json(['success' => false]);
+        }
+    }
+
+
+    public function search($key = null) {
+        if ($key) {  
+            $movies = Movie::where('name', 'like', "$key%")->get();
+            $series = Serie::where('name', 'like', "$key%")->get();
+            return view('main.result', [
+                'movies' => $movies,
+                'series' => $series
+            ]);
+        }
+        else {
+            return view('main.result');
+        }
     }
 
 

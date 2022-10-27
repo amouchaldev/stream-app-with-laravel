@@ -8,7 +8,7 @@
         padding-top: 43px;
     }
 
-    header #search-input {
+    header #search-input, header #search-result {
         left: 12%;
         top: 90%;
     }
@@ -24,26 +24,29 @@
     main .info {
         top: 167%
     }
-    header #search-input {
+    header #search-input, header #search-result {
         transform: translate(-50%, 222%);
     }
     /* #you-might-like .card{
         height: 275px;
         } */
+        header #search-result  {
+            top: -192%!important;
+        }
 }
 
 
 @media only screen and (max-width: 517px) {
-    header #search-input {
+    header #search-input, header #search-result {
         transform: translate(-51%, 257%)!important;
     }
 }
 
 
 /* Extra Small Devices, Phones */ 
-@media only screen and (min-width: 577px) and (max-width : 767px) {
+@media only screen and (min-width: 577px) and (max-width : 768px) {
     /*Big smartphones [426px -> 600px]*/
-    header #search-input {
+    header #search-input, header #search-result {
         transform: translate(-51%, 208%);
     }
     header {
@@ -64,14 +67,16 @@
     #seasonAndEp {
         margin-top: 1090px;
     }
-
+    header #search-result  {
+        top: -183%!important;
+    }
     /* #you-might-like .card {
         height: 287px;
             } */
 }
 
 @media only screen and (min-width: 768px) {
-    header #search-input {
+    header #search-input, header #search-result {
         transform: translate(-50%, 165%);
     }
     header {

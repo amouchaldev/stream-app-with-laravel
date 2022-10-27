@@ -39,7 +39,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto mt-2 mt-lg-0 d-flex align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#" aria-current="page">Home <span class="visually-hidden">(current)</span></a>
+                            <a class="nav-link active" href="/" aria-current="page">Home <span class="visually-hidden">(current)</span></a>
                         </li>
                         <li class="nav-item dropdown mx-md-2">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Genre</a>
@@ -83,8 +83,8 @@
                     </ul>
                     <form class="d-flex flex-column flex-lg-row my-3 my-lg-0">
                         <div class="input-group me-4">
-                            <span class="input-group-text bg-white border bg-transparent text-light" id="basic-addon1"><i class="fa-solid fa-magnifying-glass"></i></span>
-                            <input type="text" class="form-control border border-light bg-transparent" placeholder="Enter Keyword" aria-label="Username" aria-describedby="basic-addon1">
+                            <span id="search-btn" class="input-group-text bg-white border bg-transparent text-light" id="basic-addon1" role="button"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <input id="search-input" type="text" class="form-control border border-light bg-transparent text-light" placeholder="Enter Keyword" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                     @if(!Route::currentRouteName() == "login")
                     <a href="{{ route('login') }}" class="d-flex align-items-center justify-content-center text-decoration-none text-light mt-3 mt-lg-0 text-center">    
@@ -168,6 +168,9 @@
         const episodesContainer = doc.querySelector('#seasonEp .row')
         const seasons = @php echo $serie->seasons()->get() @endphp;
             show(serie, "tv")
+
+           
+
             // generateEpisodes("col-6 col-sm-4 col-md-3 col-lg-3 mb-4")
         </script>        
  @endif
@@ -186,7 +189,15 @@
  </script>
  @endif
 
+<script>
+     function showSearchResult(btn, val) {
+                    btn.addEventListener('click', e => {
+                        window.location.href = "/search/" + val.value
+                    })
+                }
 
+    showSearchResult(doc.getElementById('search-btn'), doc.getElementById('search-input'))
+</script>
     @yield("script")
 
 </body>

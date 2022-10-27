@@ -57,9 +57,19 @@ header {
 nav #logo {
     width: 102px;
 }
-header #search-input {
+
+header #search-input, header #search-result {
     left: 50%;
     top: 50%;
+    z-index: 1000;
+}
+header #search-result  {
+    top: -169%;
+    height: 388px;
+}
+header #search-result li:hover{
+    transition: all .9s ease;
+    background: #eeeeee!important;
 }
 nav {
     font-size: 15px;
@@ -126,7 +136,7 @@ main .info a.btn {
 /* #more-section {
     margin-top: 317px!important;
 } */
-/* ----------------------------- end page 2 ----------------------------------------------- */
+/* ----------------------------- end page 2 --------------------------------------- */
 
 /* episode sections */
 section .dot  {
@@ -162,7 +172,7 @@ section .dot  {
 }
 
 
-/* ------------------------------------------------------ third page ------------------------- */
+/* ----------------------------- third page ------------------------- */
 
 #player {
     height: 670px;
@@ -224,3 +234,10 @@ footer .note {
 .splide__pagination__page {
     display: none!important;
  }
+
+
+
+ .break-column {
+    flex-basis: 100%;
+    width: 0;
+  }
