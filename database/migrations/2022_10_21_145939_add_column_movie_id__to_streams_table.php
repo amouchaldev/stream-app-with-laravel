@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('streams', function (Blueprint $table) {
             $table->unsignedBigInteger('episode_id')->nullable()->default("NULL")->change();
-            $table->foreignId('movie_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('movie_id')->after('episode_id')->constrained()->cascadeOnDelete();
         });
     }
 

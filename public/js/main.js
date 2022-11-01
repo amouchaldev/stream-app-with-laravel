@@ -114,7 +114,7 @@ function generateEpisodes(className) {
             seasonList.innerHTML += `<option value="${ss.id}">Season ${ss.season_num}</option>` 
         }
         seasonList.addEventListener('change', e => {
-            fetchEpBySeason(e)
+            fetchEpBySeason(e, current_season, className)
         })
     }
     else doc.getElementById('seasonAndEp').innerHTML = "<h3>THIS SERIE HAS NO EPISODE YET</h3>"
@@ -154,7 +154,6 @@ function fetchEpBySeason(e = null, current_season, className) {
                         }
                     }
                     else {
-
                         episodesContainer.innerHTML = "<h3 class='pt-2 pb-3 text-capitalize'>this season has no episodes yet</h3>"
                     }
                 // }

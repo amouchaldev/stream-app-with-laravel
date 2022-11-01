@@ -77,21 +77,29 @@
                         <li class="nav-item mx-md-2">
                             <a class="nav-link" href="{{ route('series.index') }}">tv show</a>
                         </li>
-                        <li class="nav-item mx-md-2">
-                            <a class="nav-link" href="#">top IMDB</a>
-                        </li>  
+                        @auth
+                            <li class="nav-item mx-md-2">
+                                <a class="nav-link" href="{{ route('favorite') }}"><i class="fa-solid fa-heart me-1"></i> My Favorite</a>
+                            </li>  
+                        @endauth
                     </ul>
+                
                     <form class="d-flex flex-column flex-lg-row my-3 my-lg-0">
                         <div class="input-group me-4">
                             <span id="search-btn" class="input-group-text bg-white border bg-transparent text-light" id="basic-addon1" role="button"><i class="fa-solid fa-magnifying-glass"></i></span>
                             <input id="search-input" type="text" class="form-control border border-light bg-transparent text-light" placeholder="Enter Keyword" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
-                    @if(!Route::currentRouteName() == "login")
-                    <a href="{{ route('login') }}" class="d-flex align-items-center justify-content-center text-decoration-none text-light mt-3 mt-lg-0 text-center">    
-                        <i class="fa-regular fa-user me-2"></i>Login
-                    </a>
-                    @endif
                     </form>
+
+                    @guest    
+                        @if(!Route::currentRouteName() == "login")
+                            <a href="{{ route('login') }}" class="d-flex align-items-center justify-content-center text-decoration-none text-light mt-3 mt-lg-0 text-center">    
+                                <i class="fa-regular fa-user me-2"></i>Login
+                            </a>
+                        @endif
+                    @endguest
+
+
                 </div>
                 </div>
             </nav>
@@ -125,6 +133,8 @@
               </div>
           </div>
       </footer>
+
+      
     </div>
 
     <script src="{{ asset('js/splide-extension-auto-scroll.min.js') }}"></script>
@@ -177,15 +187,13 @@
  
  @if(Route::currentRouteName() == "series.show")
  <script>
-
      generateEpisodes("col-lg-2")
  </script>
  @endif
 
  @if(Route::currentRouteName() == "tv")
  <script>
-
-     generateEpisodes("col-6 col-sm-4 col-md-4 col-lg-3")
+     generateEpisodes("col-6 col-sm-4 col-md-4 col-lg-3 col-xxl-2")
  </script>
  @endif
 

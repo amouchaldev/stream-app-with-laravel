@@ -14,11 +14,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $nbUsers = $this->command->ask('how users you want to add ?');
+        \App\Models\User::factory($nbUsers)->create();
 
+        
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        $this->call([MovieSeeder::class, SerieSeeder::class,
+         SeasonSeeder::class,EpisodeSeeder::class,
+        StreamSeeder::class, DownloadSeeder::class,
+    Genre::class]);
     }
 }

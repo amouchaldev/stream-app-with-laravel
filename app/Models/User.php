@@ -59,4 +59,7 @@ class User extends Authenticatable
     public function downloads() {
         return $this->hasMany(Download::class);
     }
+    public function favorites() {
+        return $this->hasMany(Favorite::class);
+    }
 }

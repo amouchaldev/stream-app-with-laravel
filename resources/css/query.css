@@ -40,6 +40,9 @@
     header #search-input, header #search-result {
         transform: translate(-51%, 257%)!important;
     }
+    #player {
+        height: 310px!important;
+    }
 }
 
 
@@ -73,6 +76,10 @@
     /* #you-might-like .card {
         height: 287px;
             } */
+
+    #player {
+        height: 398px!important;
+    }
 }
 
 @media only screen and (min-width: 768px) {
@@ -88,6 +95,10 @@
     header .dropdown-menu {
         width: 405px;
     }
+    #player {
+        height: 510px!important;
+    }
+    
 }
 @media only screen and (min-width: 992px)  {
     footer > div {
@@ -103,10 +114,19 @@
     /* .img-container {
         height: 240.427px;
     } */
+    #player {
+        height: 680px!important;
+    }
 }
 @media only screen and (min-width: 992px) and (max-width: 1200px){
 
     .img-container {
         height: 220.427px;
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+    .img-container {
+        height: 239.42px!important;
     }
 }

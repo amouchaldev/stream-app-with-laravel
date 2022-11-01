@@ -26,7 +26,12 @@
                 <li class="py-2"><a href="#" class="text-decoration-none text-light">add season</a></li>
                 <li class="py-2"><a href="#" class="text-decoration-none text-light">add episode</a></li>
                 <li class="py-2"><a href="#" class="text-decoration-none text-light">add movie</a></li>
-                <li class="py-2"><a href="#" class="text-decoration-none text-light">log out</a></li>
+                <li class="py-2">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                        {{ csrf_field() }}
+                        <input type="submit" class="bg-transparent border-0 text-light" value="logout">
+                    </form>
+                </li>
             </ul>
         </div>
         <div class="col-10 content">

@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('downloads', function (Blueprint $table) {
-            $table->unsignedBigInteger('movie_id')->after('episode_id')->change();
+        Schema::create('favorties', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('downloads', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('favorties');
     }
 };

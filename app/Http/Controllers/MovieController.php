@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class MovieController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['auth', "isAdmin"])->only(['create', 'store', 'edit', 'update', 'destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,6 @@ class MovieController extends Controller
      */
     public function index()
     {
-        // return "loool";
         $movies = Movie::all();
         return view('main.result', ['movies' => $movies]);
     }

@@ -61,7 +61,7 @@ nav #logo {
 header #search-input, header #search-result {
     left: 50%;
     top: 50%;
-    z-index: 1000;
+    z-index: 800;
 }
 header #search-result  {
     top: -169%;

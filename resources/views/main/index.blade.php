@@ -57,16 +57,31 @@
                     <li class="nav-item mx-md-2">
                         <a class="nav-link" href="{{ route('series.index') }}">tv show</a>
                     </li>
-                    <li class="nav-item mx-md-2">
-                        <a class="nav-link" href="#">top IMDB</a>
-                    </li>  
+                    @auth
+                        <li class="nav-item mx-md-2">
+                            <a class="nav-link" href="{{ route('favorite') }}"><i class="fa-solid fa-heart me-1"></i> My Favorite</a>
+                        </li>  
+                    @endauth
                 </ul>
+
+                @guest
                 <form class="d-flex my-2 my-lg-0 justify-content-center">
                     <a href="{{ route('login') }}" class="btn btn-light my-2 my-sm-0 btn-sm text-center px-2" type="submit">
                         <i class="fa-regular fa-user me-2"></i>
                         <span class="d-linline d-md-none d-lg-inline">Login</span>
                     </a>
                 </form>
+                @endguest
+
+                @auth
+                <form action="{{ route('logout') }}" method="POST" class="d-flex my-2 my-lg-0 justify-content-center" >
+                    {{ csrf_field() }}
+                    <button class="btn btn-light my-2 my-sm-0 btn-sm text-center px-2" type="submit">
+                        <i class="fa-regular fa-user me-2"></i>
+                        <span class="d-linline d-md-none d-lg-inline">Logout</span>
+                    </button>
+                </form>
+                @endauth
             </div>
         </div>
     </nav>

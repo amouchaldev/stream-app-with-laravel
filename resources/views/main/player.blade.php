@@ -65,13 +65,11 @@
         <!-- download servers -->
         <section class="container-fluid @if(Route::currentRouteName() == "movie") mt-5 @endif" id="download-servers">
             <!-- <button class="btn btn-primary mb-3 py-2 px-4" >Download Servers</button> -->
-            <h3 class="mb-3 text-light h2">Download Servers</h3>
-            <div class="d-flex flex-column rounded" >
-                <div class="">
-                    <ul class="d-flex flex-wrap text-light list-unstyled justify-content-start">
+            <h3 class="text-center mb-3 text-light h2">Download Servers</h3>
+            <ul class="d-flex flex-wrap text-light list-unstyled justify-content-evenly">
                         @if($current_route == "movie")
                             @foreach($movie->downloads as $server)
-                                <li class="py-3 px-5 rounded bg-dark-blue me-2 mb-2 text-center">
+                                <li class="py-3 px-5 rounded bg-dark-blue me-2 mb-2 text-center flex-fill">
                                     <a href="{{ $server->link }}" target="_blank" class="d-flex align-items-center text-decoration-none text-light">
                                         <i class="fa-solid fa-cloud-arrow-down me-3"></i>
                                     <div>
@@ -84,8 +82,8 @@
                             @endforeach
                         @else 
                         @foreach($episode->downloads as $server)
-                            <li class="py-3 px-5 rounded bg-dark-blue me-2 mb-2 text-center">
-                                <a href="{{ $server->link }}" target="_blank" class="d-flex align-items-center text-decoration-none text-light">
+                            <li class="py-3 px-5 rounded me-2 mb-2 text-center flex-fill">
+                                <a href="{{ $server->link }}" target="_blank" class="d-flex align-items-center justify-content-center text-decoration-none text-light">
                                     <i class="fa-solid fa-cloud-arrow-down me-3"></i>
                                 <div>
                                     <span>{{ $server->name }}</span>
@@ -97,8 +95,6 @@
                         @endforeach
                         @endif
                     </ul>
-                </div>
-            </div>
         </section>     
         @if(Route::currentRouteName() == "tv")    
     </div>

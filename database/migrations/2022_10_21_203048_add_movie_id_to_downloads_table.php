@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('downloads', function (Blueprint $table) {
             $table->unsignedBigInteger('episode_id')->nullable()->default("NULL")->change();
-            $table->foreignId('movie_id')->constrained();
+            $table->foreignId('movie_id')->nullable()->after("episode_id")->constrained();
         });
     }
 

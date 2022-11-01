@@ -79,7 +79,7 @@
 
 @section('script')
 
-@if(Route::currentRouteName() == 'genre' || Route::currentRouteName() == 'search')
+@if(in_array(Route::currentRouteName(), ['genre', 'search']))
 <script>
         // toggle trending movies and trending tv show
         // const doc = document

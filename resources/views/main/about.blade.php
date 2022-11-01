@@ -9,9 +9,6 @@
 
         nav  {
             background-color: #000;
-            /* background-image: url("{{ asset('images/Curve-Line.svg') }}");
-            background-size: cover;
-            background-position: left; */
         }
     .modal-body {
         width: 787px;

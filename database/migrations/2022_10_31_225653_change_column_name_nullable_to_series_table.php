@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('streams', function (Blueprint $table) {
-            $table->unsignedBigInteger('movie_id')->after('episode_id')->change();
+        Schema::table('series', function (Blueprint $table) {
+            $table->string('name')->nullable()->change();
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('streams', function (Blueprint $table) {
-            //
+        Schema::table('series', function (Blueprint $table) {
+            $table->string('name')->nullable(false)->change();
         });
     }
 };
