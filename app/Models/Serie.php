@@ -20,4 +20,8 @@ class Serie extends Model
     public function genres() {
         return $this->belongsToMany(Genre::class);
     }
+    
+    public function favorites() {
+        return $this->hasMany(Favorite::class);
+    }
 }

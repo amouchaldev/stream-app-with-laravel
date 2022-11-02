@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Episode;
+use App\Models\Favorite;
 use App\Models\Serie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SerieController extends Controller
 {
@@ -67,10 +69,13 @@ class SerieController extends Controller
     public function show($id)
     {
         $serie = Serie::findOrFail($id);
+        if(Auth::check()) {
+            $inFavorite = Favorite::where('serie_id', $id)->where('user_id', Auth::user()->id)->first();
+        }
         return view('main.about', [
-            "serie" => $serie
+            "serie" => $serie,
+            "isFav" => $inFavorite ?? null
         ]);
-        // return Serie::findOrFail($id);
     }
 
         

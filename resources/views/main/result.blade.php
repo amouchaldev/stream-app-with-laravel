@@ -1,15 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
+@php 
+    $currentRouteName = Route::currentRouteName();
+@endphp
 
+@if(in_array($currentRouteName, ['genre', 'search', 'favorite']))
 
-@if (Route::currentRouteName() == 'genre' || Route::currentRouteName() == 'search')
 <section id="trending" class="mb-5 mt-4">
     <div class="container-fluid">
         <div class="d-flex align-items-center mb-3">
-            <h2 class="me-4 text-light text-uppercase">{{ $genre ?? "Result of search" }}</h2>
-            <button class="btn btn-sm btn-primary me-3 btn-movies"><i class="fa-solid fa-circle-play me-2"></i>Movies</button>
-            <button class="btn btn-sm  btn-light btn-tv-show"><i class="fa-solid fa-list-ul me-2"></i>Tv Show</button>
+            <h2 class="me-4 text-light text-uppercase">
+                @if($currentRouteName == "genre")
+                    {{ $genre }}
+                @elseif($currentRouteName == "search")
+                    Search Result
+                @else
+                    My Favorite
+                @endif
+            </h2>
+            <button class="btn btn-sm btn-primary me-3 btn-movies mb-2"><i class="fa-solid fa-circle-play me-2"></i>Movies</button>
+            <button class="btn btn-sm  btn-light btn-tv-show mb-2"><i class="fa-solid fa-list-ul me-2"></i>Tv Show</button>
         </div>
         <!-- trending movies -->
         <div id="trending-movies">
@@ -48,7 +59,7 @@
 </section>
 @endif
 
-@if(Route::currentRouteName() == 'movies.index')
+@if($currentRouteName == 'movies.index')
 <section id="trending" class="mb-5 mt-4">
     <div class="container-fluid">
         <div id="trending-movies">
@@ -60,7 +71,7 @@
 </section>
 @endif
 
-@if(Route::currentRouteName() == 'series.index')
+@if($currentRouteName == 'series.index')
 <section id="trending" class="mb-5 mt-4">
     <div class="container-fluid">
         <div id="trending-movies">
@@ -79,7 +90,7 @@
 
 @section('script')
 
-@if(in_array(Route::currentRouteName(), ['genre', 'search']))
+@if(in_array($currentRouteName, ['genre', 'search', 'favorite']))
 <script>
         // toggle trending movies and trending tv show
         // const doc = document
@@ -88,10 +99,7 @@
         moviesBtn.addEventListener('click', () => toggleMoviesAndTvShow(trendingMoviesContainer, moviesBtn,  trendingTvShowContainer, tvShowBtn))
         tvShowBtn.addEventListener('click', () => toggleMoviesAndTvShow(trendingTvShowContainer, tvShowBtn, trendingMoviesContainer, moviesBtn))
         function toggleMoviesAndTvShow(firstSection, firstBtn, secondSection, secondBtn) {
-            // console.log('LOOL')
-            // const container = firstSection.parentElement
             if (firstSection.classList.contains('d-none')) {
-                // console.log('lool')
                 firstSection.classList.remove('d-none')
                 secondSection.classList.add('d-none')
                 firstBtn.classList.replace('btn-light', 'btn-primary')
@@ -107,7 +115,7 @@
 </script>
 @endif
 
-@if(Route::currentRouteName() == 'movies.index')
+@if($currentRouteName == 'movies.index')
 <script>
     const movies = @php echo $movies; @endphp;
         
@@ -116,7 +124,7 @@
 @endif
 
 
-@if(Route::currentRouteName() == 'series.index')
+@if($currentRouteName == 'series.index')
 <script>
     const series = @php echo $series; @endphp;
     fetchPoster(series, '#trending-movies > .row', false, 'tv', 'series')

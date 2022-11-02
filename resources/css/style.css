@@ -122,7 +122,7 @@ main .info .description {
     color: #000000c2;
 }
 
-main .info a.btn {
+main .info a.btn, main .info button {
     border-radius: 30px;
 }
 /* season and episodes */

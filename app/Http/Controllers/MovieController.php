@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favorite;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MovieController extends Controller
 {
@@ -66,11 +68,14 @@ class MovieController extends Controller
     public function show($id)
     {
         $movie = Movie::findOrFail($id);
+        if(Auth::check()) {
+            $inFavorite = Favorite::where('movie_id', $id)->where('user_id', Auth::user()->id)->first();
+        }
         return view('main.about', [
-            'movie' => $movie
+            'movie' => $movie,
+            'isFav' => $inFavorite ?? null
         ]);
 
-        // return Movie::findOrFail($id);
     }
 
     public function player($id) {

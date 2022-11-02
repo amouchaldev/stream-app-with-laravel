@@ -88,6 +88,7 @@ class MainController extends Controller
         if ($key) {  
             $movies = Movie::where('name', 'like', "$key%")->get();
             $series = Serie::where('name', 'like', "$key%")->get();
+            // return $movies;
             return view('main.result', [
                 'movies' => $movies,
                 'series' => $series

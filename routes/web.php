@@ -59,3 +59,5 @@ Route::get('/search/{key?}', [MainController::class, 'search'])->name('search');
 
 // favorite:
 Route::get('/favorite', [FavoriteController::class, 'index'])->name('favorite')->middleware('auth');
+Route::post('/favorite/{id}/store', [FavoriteController::class, 'store'])->name('favorites.store')->middleware('auth');
+Route::delete('/favorite/{id}/delete', [FavoriteController::class, 'delete'])->name('favorites.delete')->middleware('auth');

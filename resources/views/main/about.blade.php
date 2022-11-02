@@ -37,12 +37,23 @@
                 <div class="poster">
                     <img src="" id="mv-poster" alt="poster" class="w-100 h-100 rounded">
                 </div>
-
             </div>
             <div class="col-12 col-md-8 col-lg-9">
                 <div class="d-flex justify-content-between mb-3 align-items-center">
                     <a href="{{ $currentRoute == "movies.show" ? route('movie', $movie->id) : "#seasonAndEp"}}" class="btn btn-primary btn-sm px-3" id="watch-now"><i class="fa-solid fa-play m-2"></i>watch now</a>
-                    <a href="#" class="btn btn-light btn-sm px-3 py-2"><i class="fa-solid fa-plus me-2"></i>Add to favorite</a>
+                    @guest
+                        <a href="{{ route('login') }}" class="btn btn-light btn-sm px-3 py-2" id="add-to-favorite"><i class="fa-solid fa-plus me-2"></i>Add to favorite</a>
+                    @endguest
+                    @auth
+                        @if($isFav == null)
+                            <button class="btn btn-light btn-sm px-3 py-2" id="add-to-favorite"><i class="fa-solid fa-plus me-2"></i>Add to favorite</button>
+                        @endif
+
+                        @if($isFav != null)
+                            <button class="btn btn-light btn-sm px-3 py-2" id="remove-favorite"><i class="fa-solid fa-minus me-2"></i>remove from favorite</button>
+                        @endif
+                    @endauth
+
                 </div>
                 <h2 class="mb-3"><a href="#" class="text-decoration-none text-black" id="mv-name">Bullet Train</a></h2>
                 <div class="mb-3">
@@ -62,7 +73,7 @@
                                     @endforeach   
                                 @else 
                                     @foreach($serie->genres as $genre)
-                                    <x-genre :link="$genre->name">{{ $genre->name }}</x-genre>
+                                        <x-genre :link="$genre->name">{{ $genre->name }}</x-genre>
                                     @endforeach   
                                 @endif
                             </li>
@@ -103,18 +114,90 @@
 @endsection
 
 @section('script')
+    {{-- Sweet Alert --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    {{-- jquery --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
  
 // start movie
     @if(Route::currentRouteName() == "movies.show") 
-    let movie = @php echo $movie @endphp;
-        console.log('lool')
+        let movie = @php echo $movie @endphp;
+        // console.log('lool')
         show(movie, "movie")
+    @endif
+
+    @if(Route::currentRouteName() == "series.show") 
+        let movie = @php echo $serie @endphp;        
     @endif
 // end movie
 
-    
-    
-    //  console.log() 
+// add to favorite     
+// const addToFavBtn = doc.getElementById('add-to-favorite')
+$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    const route = (window.location.href).split("/");
+    // add to favorite:
+    function addFav() {
+        const addToFavBtn = $("#add-to-favorite");
+        // console.log(removeFavBtn)
+        addToFavBtn.on("click", function () {
+            $.ajax({
+                type: "POST",
+                url: "/favorite/" + movie.id + "/store",
+                data: {
+                    route: route[3],
+                },
+                success: function (response) {
+                    console.log(response)
+                    if (response == "true") {
+                        addToFavBtn.replaceWith(`<button class="btn btn-light btn-sm px-3 py-2" id="remove-favorite"><i class="fa-solid fa-minus me-2"></i>remove from favorite</button>`);
+                        removeFav()
+                        // sweetAlert("success", "Added To Favorite Successfully")
+                        Swal.fire({
+                        position: 'center',
+                        icon: "success",
+                        title: "Added To Favorite Successfully",
+                        showConfirmButton: false,
+                        timer: 1300
+                        })
+                    }
+                }
+            });
+        });
+    }
+    // delete from favorite:
+    function removeFav() {
+            const removeFavBtn = $("#remove-favorite");
+            removeFavBtn.on("click", function () {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/favorite/" + movie.id + "/delete",
+                    data: {
+                        route: route[3],
+                    },
+                    success: function (response) {
+                        // console.log(response)
+                        if (response == "success") {
+                            removeFavBtn.replaceWith(`<button class="btn btn-light btn-sm px-3 py-2" id="add-to-favorite"><i class="fa-solid fa-plus me-2"></i>Add to favorite</button>`);
+                            addFav()
+                            Swal.fire({
+                            position: 'center',
+                            icon: "success",
+                            title: "Removed From Favorite Successfully",
+                            showConfirmButton: false,
+                            timer: 1300
+                            })
+                        }
+                    }
+                });
+        });
+    }
+
+    removeFav()
+    addFav()
 </script>
 @endsection

@@ -11,10 +11,12 @@ class Favorite extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
-    public function series() {
-        return $this->hasMany(Serie::class);
+
+    public function serie() {
+        return $this->belongsTo(Serie::class);
     }
-    public function movies() {
-        return $this->hasMany(Movie::class);
+
+    public function movie() {
+        return $this->belongsTo(Movie::class);
     }
 }
